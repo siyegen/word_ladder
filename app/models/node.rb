@@ -12,4 +12,9 @@ class Node
 
   # List of nodes connected to this node
   attr_accessor :connected_nodes
+
+  def add_node(node)
+    @connected_nodes ||= []
+    @connected_nodes << node
+  end
 end
