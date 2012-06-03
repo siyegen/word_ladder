@@ -1,12 +1,12 @@
 require 'minitest_helper'
 
-class HashInitTest < MiniTest::Unit::TestCase
-  class StubbedHash
-    include HashInit
-    attr_accessor :value
-    attr_accessor :terp
-  end
+class StubbedHash
+  include HashInit
+  attr_accessor :value
+  attr_accessor :terp
+end
 
+class HashInitTest < MiniTest::Unit::TestCase
   def test_valid_attrs
     sh = StubbedHash.new({value: 1, terp: 'moo'})
     assert_equal 1, sh.value
