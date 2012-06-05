@@ -1,0 +1,2 @@
+module WordGraphHelper
+end

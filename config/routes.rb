@@ -1,4 +1,9 @@
 WordLadder::Application.routes.draw do
+
+  get 'word_graph/index'          => 'word_graph#index'
+  post 'word_graph/solve'         => 'word_graph#solve',     :as => 'word_graph_solve'
+  get 'word_graph/solution/:id'   => 'word_graph#solution',  :as => 'word_graph_solution'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
