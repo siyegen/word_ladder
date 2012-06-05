@@ -27,11 +27,13 @@ class Graph
     word_array.each do |word|
       raw_values << word
       node = Node.new({parent: nil, value: word, cost: Float::INFINITY})
-      if wrapper.nil?
-        graph_nodes[word] = node
-      else
-        graph_nodes[word] = wrapper.new(node)
-      end
+
+      graph_nodes[word] =
+        if wrapper.nil?
+          node
+        else
+          wrapper.new(node)
+        end
     end
 
     Graph.new({nodes_hash: graph_nodes, raw_node_values: raw_values})
