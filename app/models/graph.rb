@@ -8,14 +8,16 @@ class Graph
   attr_accessor :raw_node_values
 
   def connect_nodes(connect_method)
-    nodes_hash.each_with_index do |node_a, index|
-      index += 1
-      node = node_a[1]
-      for i in (index...raw_node_values.size)
-        if node.send(connect_method, raw_node_values[i])
-          matched_node = nodes_hash[raw_node_values[i]]
-          node.add_node(matched_node)
-          matched_node.add_node(node)
+
+    graph_size = raw_node_values.size
+    for i in (0...graph_size)
+      node = nodes_hash[raw_node_values[i]]
+      j = i + 1
+      for k in (j...graph_size)
+        other_node = nodes_hash[raw_node_values[k]]
+        if node.send(connect_method, other_node.value)
+          node.add_node(other_node)
+          other_node.add_node(node)
         end
       end
     end
@@ -24,6 +26,7 @@ class Graph
   def self.create(word_array, wrapper = nil)
     graph_nodes = {}
     raw_values = []
+    word_array.sort!
     word_array.each do |word|
       raw_values << word
       node = Node.new({parent: nil, value: word, cost: Float::INFINITY})
@@ -37,5 +40,17 @@ class Graph
     end
 
     Graph.new({nodes_hash: graph_nodes, raw_node_values: raw_values})
+  end
+
+  def path(start)
+    path = []
+    return path if start.nil?
+
+    current = start
+    until current.nil?
+      path << current
+      current = current.parent
+    end
+    path.reverse
   end
 end

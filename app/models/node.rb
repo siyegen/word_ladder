@@ -13,6 +13,9 @@ class Node
   # List of nodes connected to this node
   attr_accessor :connected_nodes
 
+  # Has this node already been visited?
+  attr_accessor :visited
+
   def add_node(node)
     @connected_nodes ||= []
     @connected_nodes << node
